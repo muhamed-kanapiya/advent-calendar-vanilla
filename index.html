@@ -1,51 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Advent Calendar</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body class="light-theme">
-    <div class="theme-controls">
-        <button id="themeToggle" aria-label="Toggle theme">
-            <i class="fas fa-moon"></i>
-        </button>
-        <select id="weekStartDay">
-            <option value="0">Sunday Start</option>
-            <option value="1">Monday Start</option>
-        </select>
-        <select id="calendarTheme">
-            <option value="advent">Advent 🎄</option>
-            <option value="winter">Winter ❄️</option>
-            <option value="space">Space 🚀</option>
-            <option value="ocean">Ocean 🌊</option>
-        </select>
-    </div>
 
-    <div class="theme-description"></div>
 
-    <div class="calendar-container">
-        <div class="calendar-header">
-            <h1 id="currentMonth"></h1>
-        </div>
-        <div class="weekdays" id="weekdaysContainer"></div>
-        <div class="calendar-grid" id="calendarGrid"></div>
-    </div>
+    <div class="main-container">
+        <div class="calendar-side">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h1 id="currentMonth"></h1>
+                </div>
+                <div class="weekdays" id="weekdaysContainer"></div>
+                <div class="calendar-grid" id="calendarGrid"></div>
+            </div>
+            <div class="social-links">
+                <a href="https://twitter.com/share?url=https://your-calendar-url.com" target="_blank"
+                    aria-label="Share on Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?url=https://your-calendar-url.com" target="_blank"
+                    aria-label="Share on LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/your-username/advent-calendar-vanilla" target="_blank"
+                    aria-label="View on GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:?subject=Check out this SEO Advent Calendar&body=I found this amazing SEO learning calendar: https://your-calendar-url.com"
+                    aria-label="Share via Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
 
-    <div class="info-section">
-        <div class="today-content">
-            <h2>Today's Content</h2>
-            <div id="todayContent"></div>
         </div>
-        <div class="countdown">
-            <h2>Next Day Opens In</h2>
-            <div id="countdown"></div>
+
+        <div class="content-side">
+            <div class="theme-controls">
+                <div class="control-group">
+                    <label>Theme</label>
+                    <button id="themeToggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+                <div class="control-group">
+                    <label>Start</label>
+                    <select id="weekStartDay">
+                        <option value="0">Sunday</option>
+                        <option value="1">Monday</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Style</label>
+                    <select id="calendarTheme">
+                        <option value="advent">Advent 🎄</option>
+                        <option value="winter">Winter ❄️</option>
+                        <option value="space">Space 🚀</option>
+                        <option value="ocean">Ocean 🌊</option>
+                    </select>
+                </div>
+            </div>
+            <div class="theme-description"></div>
+            <div class="info-section">
+                <div class="today-content">
+                    <h2>Today's Content</h2>
+                    <div id="todayContent"></div>
+                </div>
+                <button id="shareButton" class="share-button">
+                    <i class="fas fa-share-alt"></i> Share Calendar
+                </button>
+
+                <div class="faq-section">
+                    <h2>FAQ</h2>
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <button class="accordion-header">
+                                How does the advent calendar work?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="accordion-content">
+                                Each day reveals new SEO tips and tricks. Days are unlocked sequentially, creating an
+                                engaging learning journey through December.
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header">
+                                Can I access previous days?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="accordion-content">
+                                Yes! Once a day is unlocked, you can revisit it anytime by clicking on that day's tile
+                                in the calendar.
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header">
+                                How do I share my progress?
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="accordion-content">
+                                Use the share button to share either the entire calendar or specific day's content with
+                                your friends and colleagues.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="creator-credit">
+                Created with ❤️ by <a href="https://x.com/Qazbiz" target="_blank">Muhamed-Kanapiya</a>
+            </div>
         </div>
-        <button id="shareButton" class="share-button">
-            <i class="fas fa-share-alt"></i> Share Calendar
-        </button>
     </div>
 
     <div id="popup" class="popup">
@@ -63,4 +137,5 @@
     <script src="calendar-data.js"></script>
     <script src="app.js"></script>
 </body>
+
 </html>

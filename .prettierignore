@@ -1,0 +1,25 @@
+# Dependency directories
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Coverage directory
+coverage/
+
+# Logs
+logs/
+*.log
+
+# Cache directories
+.cache/
+.npm/
+
+# Editor directories
+.idea/
+.vscode/
+
+# System Files
+.DS_Store
+Thumbs.db
