@@ -92,31 +92,64 @@ function updateFloatingEmojis() {
     floatingEmojis.innerHTML = '';
     const emojis = themeData[currentTheme].emojis;
     
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 40; i++) {
         const emoji = document.createElement('div');
-        emoji.className = 'emoji';
+        emoji.className = 'emoji parallax';
         emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
         emoji.style.left = `${Math.random() * 100}vw`;
-        emoji.style.animationDelay = `${Math.random() * 20}s`;
+        
+        // Stagger the initial animation start
+        const initialDelay = Math.random() * 20;
+        const animationDuration = 15 + Math.random() * 10;
+        emoji.style.animation = `float ${animationDuration}s linear ${initialDelay}s infinite`;
+        
+        // Randomize initial position
+        const startProgress = Math.random();
+        const initialY = -50 + (window.innerHeight + 100) * startProgress;
+        emoji.style.transform = `translateY(${initialY}px)`;
+        
+        emoji.style.setProperty('--direction', Math.random() > 0.5 ? '1' : '-1');
         floatingEmojis.appendChild(emoji);
     }
-}
-
-// Update theme description
-function updateThemeDescription() {
-    const description = themeData[currentTheme].description;
-    themeDescription.innerHTML = `<p>${description}</p>`;
 }
 
 // Parallax Effect
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const emojis = document.querySelectorAll('.emoji');
-    emojis.forEach(emoji => {
-        const speed = 0.5;
-        emoji.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled / 10}deg)`;
+    emojis.forEach((emoji, index) => {
+        const speed = 0.2 + (index % 3) * 0.1;
+        const rotation = scrolled / (10 + (index % 5) * 2);
+        const scale = 1 + Math.sin(scrolled * 0.002 + index) * 0.2;
+        const baseTransform = emoji.style.transform.match(/translateY\(([-\d.]+)px\)/) || ['', '0'];
+        const baseY = parseFloat(baseTransform[1]);
+        emoji.style.transform = `translateY(${baseY + scrolled * speed}px) rotate(${rotation}deg) scale(${scale})`;
     });
 });
+
+// Mouse move effect for radial background
+document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth) * 100;
+    const y = (e.clientY / window.innerHeight) * 100;
+    document.documentElement.style.setProperty('--mouse-x', x + '%');
+    document.documentElement.style.setProperty('--mouse-y', y + '%');
+});
+
+// Touch move effect for mobile
+document.addEventListener('touchmove', (e) => {
+    if (e.touches[0]) {
+        const x = (e.touches[0].clientX / window.innerWidth) * 100;
+        const y = (e.touches[0].clientY / window.innerHeight) * 100;
+        document.documentElement.style.setProperty('--mouse-x', x + '%');
+        document.documentElement.style.setProperty('--mouse-y', y + '%');
+    }
+});
+
+// Update theme description
+function updateThemeDescription() {
+    const description = themeData[currentTheme].description;
+    themeDescription.innerHTML = `<p>${description}</p>`;
+}
 
 // Calendar Functions
 function getDaysInMonth(year, month) {

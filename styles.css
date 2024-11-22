@@ -8,6 +8,8 @@
     --weekend-color: #fab1a0;
     --popup-bg: rgba(0, 0, 0, 0.7);
     --card-bg: #ffffff;
+    --radial-color: rgba(52, 152, 219, 0.1);
+    --radial-color-dark: rgba(52, 152, 219, 0.2);
 }
 
 .dark-theme {
@@ -20,6 +22,8 @@
     --weekend-color: #e17055;
     --popup-bg: rgba(0, 0, 0, 0.8);
     --card-bg: #34495e;
+    --radial-color: rgba(52, 152, 219, 0.15);
+    --radial-color-dark: rgba(52, 152, 219, 0.3);
 }
 
 * {
@@ -33,6 +37,23 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     min-height: 100vh;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                var(--radial-color) 0%,
+                transparent 50%);
+    pointer-events: none;
+    z-index: -1;
     transition: all 0.3s ease;
 }
 
@@ -197,6 +218,7 @@ button:hover, select:hover {
     height: 100%;
     pointer-events: none;
     z-index: -1;
+    overflow: hidden;
 }
 
 .emoji {
@@ -204,14 +226,25 @@ button:hover, select:hover {
     font-size: 24px;
     animation: float 20s linear infinite;
     opacity: 0.3;
+    will-change: transform;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    top: -50px; /* Start above the viewport */
+}
+
+.emoji.parallax {
+    transition: transform 0.1s ease-out;
 }
 
 @keyframes float {
     0% {
-        transform: translateY(100vh) rotate(0deg);
+        transform: translateY(-50px) translateX(0) rotate(0deg) scale(1);
+    }
+    50% {
+        transform: translateY(50vh) translateX(calc(var(--direction) * 100px)) rotate(180deg) scale(1.2);
     }
     100% {
-        transform: translateY(-100px) rotate(360deg);
+        transform: translateY(calc(100vh + 50px)) translateX(0) rotate(360deg) scale(1);
     }
 }
 
