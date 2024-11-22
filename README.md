@@ -1,45 +1,37 @@
-# Advent Calendar 2023 🎄
+# 🎄 Advent Calendar 2023
 
-A beautiful, interactive advent calendar built with vanilla JavaScript, HTML, and CSS. Features a design inspired by shadcn/ui.
+An interactive advent calendar web app built with vanilla JavaScript, featuring daily surprises until Christmas.
 
-## Features ✨
+## Features
 
-- 🎨 Modern, clean UI with light/dark mode
-- 📅 Interactive calendar with 24 days of surprises
+- 🎨 Multiple themes (Winter Wonderland, Cozy Cabin, Festive Magic, Nordic Night)
+- 🌓 Light/Dark mode toggle
+- 📅 Flexible week start (Monday/Sunday)
 - ⏰ Countdown timer to next day
-- 🔄 Week start day switcher (Sunday/Monday)
-- 📱 Responsive design for all devices
-- 💾 Progress saved locally
-- 📤 Share functionality for calendar and individual days
-- 🎁 Today's content feature
-- 🖼️ Beautiful animations and transitions
+- 📱 Responsive design
+- 🔗 Share functionality
+- 💾 Progress saving
+- ✨ Animated backgrounds
+- 🎯 Daily surprises with emojis
 
-## Getting Started 🚀
+## Usage
 
-1. Clone the repository
-2. Open `index.html` in your browser
-3. Start exploring the calendar!
+1. Open `index.html` in your browser
+2. Click on the current or past days to reveal surprises
+3. Future days are locked until their date arrives
+4. Share individual days or the whole calendar
+5. Switch between themes and dark/light mode
+6. Track time until next day opens
 
-## Usage 📖
+## Development
 
-- Click on available days to reveal their content
-- Toggle between light and dark mode using the theme switcher
-- Change the start of the week using the dropdown
-- Share the calendar or individual days with friends
-- Watch the countdown timer for the next day's reveal
+Built with:
+- HTML5
+- CSS3 (with CSS Variables)
+- Vanilla JavaScript
+- Font Awesome icons
+- Web Share API
 
-## Technical Details 🛠️
+## Credits
 
-- Built with vanilla JavaScript - no frameworks needed
-- Uses CSS custom properties for theming
-- Implements the Web Share API for sharing functionality
-- Responsive grid layout using CSS Grid
-- Local storage for saving progress
-
-## Contributing 🤝
-
-Feel free to submit issues and enhancement requests!
-
-## License 📄
-
-MIT License - feel free to use this project however you'd like!
+Design inspired by [shadcn/ui](https://ui.shadcn.com/)

@@ -1,32 +1,50 @@
 :root {
-    /* Base theme colors */
-    --background: #ffffff;
-    --foreground: #18181b;
-    --card: #ffffff;
-    --border: #e2e2e2;
-    --muted: #f4f4f5;
-    --muted-foreground: #71717a;
-    --accent: #f4f4f5;
-    --accent-foreground: #18181b;
-    --primary: #ea580c;
-    --primary-foreground: #ffffff;
+    /* Base */
     --radius: 0.5rem;
-    
-    /* Typography */
-    --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+
+    /* Light Mode */
+    --background: #ffffff;
+    --foreground: #020817;
+    --card: #ffffff;
+    --card-foreground: #020817;
+    --popover: #ffffff;
+    --popover-foreground: #020817;
+    --primary: #0ea5e9;
+    --primary-foreground: #f8fafc;
+    --secondary: #f1f5f9;
+    --secondary-foreground: #0f172a;
+    --muted: #f1f5f9;
+    --muted-foreground: #64748b;
+    --accent: #f1f5f9;
+    --accent-foreground: #0f172a;
+    --destructive: #ef4444;
+    --destructive-foreground: #f8fafc;
+    --border: #e2e8f0;
+    --input: #e2e8f0;
+    --ring: #0ea5e9;
 }
 
-.dark {
-    --background: #18181b;
-    --foreground: #fafafa;
-    --card: #27272a;
-    --border: #3f3f46;
-    --muted: #27272a;
-    --muted-foreground: #a1a1aa;
-    --accent: #3f3f46;
-    --accent-foreground: #fafafa;
-    --primary: #f97316;
-    --primary-foreground: #fafafa;
+[data-theme="dark"] {
+    --background: #020817;
+    --foreground: #f8fafc;
+    --card: #0f172a;
+    --card-foreground: #f8fafc;
+    --popover: #0f172a;
+    --popover-foreground: #f8fafc;
+    --primary: #0ea5e9;
+    --primary-foreground: #f8fafc;
+    --secondary: #1e293b;
+    --secondary-foreground: #f8fafc;
+    --muted: #1e293b;
+    --muted-foreground: #94a3b8;
+    --accent: #1e293b;
+    --accent-foreground: #f8fafc;
+    --destructive: #7f1d1d;
+    --destructive-foreground: #f8fafc;
+    --border: #1e293b;
+    --input: #1e293b;
+    --ring: #0ea5e9;
 }
 
 * {
@@ -36,10 +54,8 @@
 }
 
 html, body {
-    height: 100vh;
-    overflow: hidden;
     font-family: var(--font-sans);
-    background-color: var(--background);
+    background: var(--background);
     color: var(--foreground);
     line-height: 1.4;
 }
@@ -57,51 +73,65 @@ header {
     padding: 0.35rem;
     background: var(--card);
     border-bottom: 1px solid var(--border);
+    text-align: center;
+    padding-top: 100px;
 }
 
-.header-content {
-    max-width: 900px;
-    margin: 0 auto;
+h1 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+}
+
+.description {
+    font-size: 0.7rem;
+    color: var(--muted-foreground);
+    margin-bottom: 0.2rem;
+}
+
+.controls {
     display: flex;
-    justify-content: flex-end;
-    gap: 0.35rem;
+    gap: 0.2rem;
+    justify-content: center;
+    margin: 0.2rem 0;
 }
 
 .button, .select {
-    background: var(--card);
-    border: 1px solid var(--border);
-    color: var(--foreground);
-    padding: 0.35rem;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.75rem;
     border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--foreground);
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .select {
-    padding-right: 1.5rem;
+    padding-right: 2rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1em;
+    appearance: none;
 }
 
 .button:hover, .select:hover {
     background: var(--accent);
 }
 
-.calendar-container {
-    margin: 0.35rem auto;
-    width: 100%;
-    max-width: 550px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 0.35rem;
+.main-content {
+    position: relative;
     height: calc(100vh - 75px);
-    display: flex;
-    flex-direction: column;
+    overflow: hidden;
+    margin: 0 auto;
+    max-width: 900px;
 }
 
 .side-content {
-    position: fixed;
+    position: absolute;
     right: 0.35rem;
-    top: 60px;
+    top: 0.35rem;
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -112,12 +142,45 @@ header {
     width: 200px;
 }
 
+.calendar-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 550px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.35rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 0.2rem;
     flex: 1;
     align-content: start;
+}
+
+.month-header {
+    text-align: center;
+    margin-bottom: 0.2rem;
+}
+
+.month-header h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.weekday-header {
+    text-align: center;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+    text-transform: uppercase;
+    padding: 0.1rem;
 }
 
 .calendar-day {
@@ -156,34 +219,47 @@ header {
     color: var(--primary-foreground);
 }
 
+.day-number {
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.day-emoji {
+    font-size: 0.8rem;
+}
+
 .share-button {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.35rem;
+    width: 100%;
     padding: 0.35rem;
-    background: var(--primary);
-    color: var(--primary-foreground);
-    border: none;
-    border-radius: var(--radius);
-    cursor: pointer;
     font-size: 0.8rem;
-    transition: opacity 0.2s;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--foreground);
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
 .share-button:hover {
-    opacity: 0.9;
-}
-
-.share-button i {
-    font-size: 0.9rem;
+    background: var(--accent);
 }
 
 .today-content, .countdown {
     background: var(--accent);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 0.5rem;
+}
+
+.today-content h2, .countdown h2 {
+    font-size: 0.9rem;
+    margin-bottom: 0.35rem;
+    text-align: center;
+    font-weight: 600;
+    color: var(--muted-foreground);
 }
 
 .countdown-timer {
@@ -200,43 +276,8 @@ header {
     margin-top: 0.25rem;
 }
 
-.today-content h2, .countdown h2 {
-    font-size: 0.9rem;
-    margin-bottom: 0.35rem;
-    text-align: center;
-    font-weight: 600;
-    color: var(--muted-foreground);
-}
-
-.month-header {
-    text-align: center;
-    margin-bottom: 0.2rem;
-}
-
-.month-header h2 {
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-.weekday-header {
-    text-align: center;
-    font-size: 0.6rem;
-    font-weight: 600;
-    color: var(--muted-foreground);
-    text-transform: uppercase;
-    padding: 0.1rem;
-}
-
-.day-number {
-    font-size: 0.7rem;
-    font-weight: 600;
-}
-
-.day-emoji {
-    font-size: 0.8rem;
-}
-
 .modal {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -244,88 +285,107 @@ header {
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
-    display: none;
-    justify-content: center;
-    align-items: center;
     z-index: 1000;
 }
 
 .modal.show {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease;
 }
 
 .modal-content {
     background: var(--card);
-    border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 1rem;
     width: 90%;
     max-width: 400px;
     position: relative;
-    animation: modalFadeIn 0.3s ease;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.2s ease;
 }
 
 .close {
     position: absolute;
-    right: 0.5rem;
     top: 0.5rem;
-    background: none;
+    right: 0.5rem;
+    background: transparent;
     border: none;
-    font-size: 1.5rem;
-    line-height: 1;
-    padding: 0.25rem;
+    font-size: 1.25rem;
     cursor: pointer;
-    color: var(--foreground);
-    opacity: 0.7;
-    transition: opacity 0.2s;
-    z-index: 2;
+    color: var(--muted-foreground);
+    transition: color 0.2s;
 }
 
 .close:hover {
-    opacity: 1;
-}
-
-.modal-body {
-    margin: 0.5rem 0 1rem;
-    font-size: 0.9rem;
-    line-height: 1.4;
     color: var(--foreground);
-}
-
-.modal .share-button {
-    width: 100%;
-    margin-top: auto;
-}
-
-@keyframes modalFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .bg-decorations {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: -1;
-    overflow: hidden;
 }
 
 .decoration-layer {
     position: absolute;
-    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: repeat;
     opacity: 0.1;
+    animation: float 20s infinite linear;
 }
 
-.decoration-layer span {
-    position: absolute;
-    font-size: 1.25rem;
-    transition: transform 0.3s;
+.layer-1 {
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10l5-5M10 10l-5 5M10 10l5 5M10 10l-5-5' stroke='%23000' fill='none'/%3E%3C/svg%3E");
+    animation-duration: 80s;
+}
+
+.layer-2 {
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='2' fill='%23000'/%3E%3C/svg%3E");
+    animation-duration: 100s;
+    animation-delay: -20s;
+}
+
+.layer-3 {
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 2l2 4 4 2-4 2-2 4-2-4-4-2 4-2z' fill='%23000'/%3E%3C/svg%3E");
+    animation-duration: 120s;
+    animation-delay: -40s;
+}
+
+@keyframes float {
+    from {
+        transform: translate(0, 0);
+    }
+    to {
+        transform: translate(-100%, -100%);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 @media (max-width: 768px) {

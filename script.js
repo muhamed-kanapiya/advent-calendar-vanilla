@@ -1,141 +1,66 @@
-// Calendar data with content for each day
+// Calendar data with daily content
 const calendarData = {
-    1: { emoji: "🎄", content: "Start decorating for Christmas! Here's a DIY ornament idea...", isHoliday: false },
-    2: { emoji: "🎅", content: "Write a letter to Santa with your Christmas wishes...", isHoliday: false },
-    3: { emoji: "🦌", content: "Learn about Rudolph and other reindeer traditions...", isHoliday: true }, // Sunday
-    4: { emoji: "🎁", content: "Start your Christmas shopping list...", isHoliday: false },
-    5: { emoji: "⭐", content: "Put up your Christmas tree and decorate it...", isHoliday: false },
-    6: { emoji: "🍪", content: "Bake some Christmas cookies...", isHoliday: false },
-    7: { emoji: "🎨", content: "Make Christmas cards for your loved ones...", isHoliday: false },
-    8: { emoji: "🕯️", content: "Light a candle and enjoy some quiet time...", isHoliday: false },
-    9: { emoji: "🎶", content: "Listen to your favorite Christmas carols...", isHoliday: false },
-    10: { emoji: "❄️", content: "Make paper snowflakes to decorate your windows...", isHoliday: true }, // Sunday
-    11: { emoji: "🧦", content: "Hang up your Christmas stockings...", isHoliday: false },
-    12: { emoji: "🎭", content: "Watch a classic Christmas movie...", isHoliday: false },
-    13: { emoji: "🎪", content: "Plan a Christmas party...", isHoliday: false },
-    14: { emoji: "🎼", content: "Go caroling with friends...", isHoliday: false },
-    15: { emoji: "🍫", content: "Make hot chocolate with marshmallows...", isHoliday: false },
-    16: { emoji: "🎮", content: "Play Christmas-themed games...", isHoliday: false },
-    17: { emoji: "📚", content: "Read a Christmas story...", isHoliday: true }, // Sunday
-    18: { emoji: "🎹", content: "Learn to play a Christmas song...", isHoliday: false },
-    19: { emoji: "🎬", content: "Create a Christmas video message...", isHoliday: false },
-    20: { emoji: "🎯", content: "Do a Christmas-themed puzzle...", isHoliday: false },
-    21: { emoji: "🎲", content: "Have a Christmas game night...", isHoliday: false },
-    22: { emoji: "🎭", content: "Practice your Christmas performance...", isHoliday: false },
-    23: { emoji: "🎪", content: "Wrap your Christmas presents...", isHoliday: false },
-    24: { emoji: "🌟", content: "Christmas Eve celebration!", isHoliday: true }
+    1: { content: "🎄 Welcome to December! Time to start the countdown to Christmas!", emoji: "🎄" },
+    2: { content: "❄️ Snowflakes are nature's tiny miracles", emoji: "❄️" },
+    3: { content: "🎅 Santa's elves are busy in the workshop", emoji: "🎅" },
+    4: { content: "🦌 Rudolph is practicing his flying", emoji: "🦌" },
+    5: { content: "🎁 The art of gift wrapping begins", emoji: "🎁" },
+    6: { content: "⭐ Stars shine brighter in December", emoji: "⭐" },
+    7: { content: "🍪 Cookie baking day! Don't forget the milk", emoji: "🍪" },
+    8: { content: "🕯️ Light a candle for peace and joy", emoji: "🕯️" },
+    9: { content: "🎨 Time to decorate the tree", emoji: "🎨" },
+    10: { content: "🧦 Hang up your stockings with care", emoji: "🧦" },
+    11: { content: "🎵 Caroling time! Fa la la la la", emoji: "🎵" },
+    12: { content: "☃️ Would you like to build a snowman?", emoji: "☃️" },
+    13: { content: "🎭 Christmas pageant rehearsal day", emoji: "🎭" },
+    14: { content: "📝 Time to write your letter to Santa", emoji: "📝" },
+    15: { content: "🛷 Sledding down snowy hills", emoji: "🛷" },
+    16: { content: "🧤 Keep warm with mittens and hot cocoa", emoji: "🧤" },
+    17: { content: "🎪 Visit the Christmas market", emoji: "🎪" },
+    18: { content: "🕊️ Peace on Earth, goodwill to all", emoji: "🕊️" },
+    19: { content: "🎸 Rock around the Christmas tree", emoji: "🎸" },
+    20: { content: "🎮 Indoor games and festive fun", emoji: "🎮" },
+    21: { content: "❤️ Share love with family and friends", emoji: "❤️" },
+    22: { content: "🌟 Follow the Star of Bethlehem", emoji: "🌟" },
+    23: { content: "🔔 Hear the Christmas bells ring", emoji: "🔔" },
+    24: { content: "🎉 Christmas Eve is here! Magic is in the air!", emoji: "🎉" }
+};
+
+// Theme data
+const themes = {
+    winter: {
+        '--primary': '#0ea5e9',
+        '--accent': '#e0f2fe',
+        '--background': '#f0f9ff'
+    },
+    cozy: {
+        '--primary': '#ea580c',
+        '--accent': '#fff7ed',
+        '--background': '#ffedd5'
+    },
+    festive: {
+        '--primary': '#16a34a',
+        '--accent': '#f0fdf4',
+        '--background': '#dcfce7'
+    },
+    nordic: {
+        '--primary': '#4b5563',
+        '--accent': '#f8fafc',
+        '--background': '#f1f5f9'
+    }
 };
 
 // DOM Elements
-const calendarGrid = document.getElementById('calendarGrid');
 const modal = document.getElementById('dayModal');
 const modalContent = document.getElementById('modalContent');
-const closeBtn = document.querySelector('.close');
+const calendarGrid = document.getElementById('calendarGrid');
 const themeToggle = document.getElementById('themeToggle');
 const themeSelect = document.getElementById('themeSelect');
 const weekStartSelect = document.getElementById('weekStartSelect');
 const shareCalendarBtn = document.getElementById('shareCalendar');
-const shareDayBtn = document.getElementById('shareDay');
-const todayCard = document.getElementById('todayCard');
 const timer = document.getElementById('timer');
-const monthHeader = document.querySelector('.month-header h2');
 
 let currentDay = null;
-
-// Theme management
-function setTheme(isDark) {
-    if (isDark) {
-        document.documentElement.classList.add('dark');
-        document.documentElement.classList.remove('light');
-        themeToggle.querySelector('i').classList.remove('fa-moon');
-        themeToggle.querySelector('i').classList.add('fa-sun');
-        localStorage.setItem('theme', 'dark');
-    } else {
-        document.documentElement.classList.add('light');
-        document.documentElement.classList.remove('dark');
-        themeToggle.querySelector('i').classList.remove('fa-sun');
-        themeToggle.querySelector('i').classList.add('fa-moon');
-        localStorage.setItem('theme', 'light');
-    }
-}
-
-function setDecorationTheme(theme) {
-    document.body.setAttribute('data-theme', theme);
-    localStorage.setItem('decoration-theme', theme);
-    generateBackgroundDecorations();
-}
-
-function generateBackgroundDecorations() {
-    const theme = document.body.getAttribute('data-theme') || 'winter';
-    const decorations = {
-        winter: ['❄️', '⛄', '❅', '🌨️', '🧊', '🧣', '🧤', '🎿'],
-        cozy: ['🏠', '🔥', '☕', '🍪', '📚', '🕯️', '🧦', '🛋️'],
-        festive: ['🎄', '🎁', '🎅', '🦌', '🤶', '🔔', '🎉', '🍬'],
-        nordic: ['🦌', '🌲', '🌟', '🏔️', '🌙', '✨', '🏰', '🗻']
-    };
-
-    const layers = document.querySelectorAll('.decoration-layer');
-    layers.forEach((layer, index) => {
-        const icons = decorations[theme];
-        layer.innerHTML = '';
-        
-        // Create a grid of icons
-        for (let i = 0; i < 50; i++) {
-            const span = document.createElement('span');
-            span.textContent = icons[Math.floor(Math.random() * icons.length)];
-            span.style.position = 'absolute';
-            span.style.left = `${Math.random() * 100}%`;
-            span.style.top = `${Math.random() * 100}%`;
-            span.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.5 + Math.random()})`;
-            layer.appendChild(span);
-        }
-    });
-}
-
-function updateMonthHeader() {
-    const now = new Date();
-    const monthNames = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
-    const month = monthNames[now.getMonth()];
-    const year = now.getFullYear();
-    monthHeader.textContent = `${month} ${year}`;
-}
-
-// Initialize themes from localStorage
-const savedTheme = localStorage.getItem('theme') || 'light';
-const savedDecoration = localStorage.getItem('decoration-theme') || 'winter';
-setTheme(savedTheme === 'dark');
-setDecorationTheme(savedDecoration);
-themeSelect.value = savedDecoration;
-
-// Theme Toggle
-themeToggle.addEventListener('click', () => {
-    const isDark = !document.documentElement.classList.contains('dark');
-    setTheme(isDark);
-});
-
-// Decoration Theme Change
-themeSelect.addEventListener('change', (e) => {
-    setDecorationTheme(e.target.value);
-});
-
-// Parallax effect for decorations
-document.addEventListener('mousemove', (e) => {
-    const layers = document.querySelectorAll('.decoration-layer');
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
-    const deltaX = e.clientX - centerX;
-    const deltaY = e.clientY - centerY;
-
-    layers.forEach((layer, index) => {
-        const speed = (index + 1) * 0.01;
-        const x = deltaX * speed;
-        const y = deltaY * speed;
-        layer.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${deltaX * 0.02}deg)`;
-    });
-});
 
 // Update countdown timer
 function updateCountdown() {
@@ -157,74 +82,55 @@ function updateCountdown() {
 function initializeCalendar() {
     const today = new Date();
     const startDay = weekStartSelect.value === 'monday' ? 1 : 0;
-    
-    // Update month header
-    updateMonthHeader();
-    
-    // Clear existing calendar
-    calendarGrid.innerHTML = '';
-    
+    const firstDay = new Date(2023, 11, 1);
+    const startingDay = (firstDay.getDay() + (7 - startDay)) % 7;
+
     // Add weekday headers
-    const weekdays = startDay === 1 
-        ? ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const orderedWeekdays = [...weekdays.slice(startDay), ...weekdays.slice(0, startDay)];
     
-    weekdays.forEach(day => {
-        const headerCell = document.createElement('div');
-        headerCell.className = 'weekday-header';
-        headerCell.textContent = day;
-        calendarGrid.appendChild(headerCell);
+    orderedWeekdays.forEach(day => {
+        const dayHeader = document.createElement('div');
+        dayHeader.className = 'weekday-header';
+        dayHeader.textContent = day;
+        calendarGrid.appendChild(dayHeader);
     });
-    
+
     // Add empty cells for days before December 1st
-    const currentMonth = today.getMonth();
-    const currentYear = today.getFullYear();
-    const firstDay = new Date(currentYear, currentMonth, 1);
-    let firstDayOfWeek = firstDay.getDay();
-    
-    if (startDay === 1) { // Adjust for Monday start
-        firstDayOfWeek = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1;
+    for (let i = 0; i < startingDay; i++) {
+        const emptyDay = document.createElement('div');
+        emptyDay.className = 'calendar-day empty';
+        calendarGrid.appendChild(emptyDay);
     }
-    
-    for (let i = 0; i < firstDayOfWeek; i++) {
-        const emptyCell = document.createElement('div');
-        emptyCell.className = 'calendar-day empty';
-        calendarGrid.appendChild(emptyCell);
-    }
-    
+
     // Add calendar days
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-    const maxDays = Math.min(24, daysInMonth);
-    
-    for (let day = 1; day <= maxDays; day++) {
+    for (let day = 1; day <= 24; day++) {
         const dayElement = document.createElement('div');
         dayElement.className = 'calendar-day';
         dayElement.dataset.day = day;
-        
-        const currentDate = new Date(currentYear, currentMonth, day);
-        const isLocked = currentDate > today;
-        const isOpened = localStorage.getItem(`day-${day}-opened`);
-        const isHoliday = calendarData[day]?.isHoliday;
-        
-        dayElement.classList.add(isLocked ? 'locked' : 'unlocked');
-        if (isOpened) dayElement.classList.add('opened');
-        if (isHoliday) dayElement.classList.add('holiday');
-        
-        dayElement.innerHTML = `
-            <div class="day-content">
-                <span class="day-number">${day}</span>
-                ${!isLocked && calendarData[day] ? `<span class="day-emoji">${calendarData[day].emoji}</span>` : ''}
-            </div>
-        `;
-        
-        if (!isLocked && calendarData[day]) {
+
+        const dayNumber = document.createElement('span');
+        dayNumber.className = 'day-number';
+        dayNumber.textContent = day;
+
+        const dayEmoji = document.createElement('span');
+        dayEmoji.className = 'day-emoji';
+        dayEmoji.textContent = calendarData[day].emoji;
+
+        dayElement.appendChild(dayNumber);
+        dayElement.appendChild(dayEmoji);
+
+        if (today.getMonth() === 11 && day <= today.getDate()) {
             dayElement.addEventListener('click', () => openDay(day));
+            if (localStorage.getItem(`day-${day}-opened`)) {
+                dayElement.classList.add('opened');
+            }
+        } else {
+            dayElement.classList.add('locked');
         }
-        
+
         calendarGrid.appendChild(dayElement);
     }
-    
-    updateTodayContent();
 }
 
 // Open Day Modal
@@ -265,58 +171,82 @@ function updateTodayContent() {
     const today = new Date();
     const day = today.getDate();
     if (today.getMonth() === 11 && day <= 24) {
+        const todayCard = document.getElementById('todayCard');
         todayCard.innerHTML = `
-            <h3>Day ${day} ${calendarData[day].emoji}</h3>
+            <h2>Today's Surprise</h2>
             <p>${calendarData[day].content}</p>
         `;
-    } else {
-        todayCard.innerHTML = '<p>No advent calendar content for today</p>';
     }
 }
 
-// Share Functionality
-shareCalendarBtn.addEventListener('click', async () => {
-    try {
-        await navigator.share({
-            title: 'Advent Calendar 2023',
-            text: 'Check out this awesome Advent Calendar!',
-            url: window.location.href
-        });
-    } catch (err) {
-        console.error('Share failed:', err);
-    }
+// Theme Toggle
+themeToggle.addEventListener('click', () => {
+    document.documentElement.setAttribute(
+        'data-theme',
+        document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+    );
+    themeToggle.innerHTML = document.documentElement.getAttribute('data-theme') === 'dark' 
+        ? '<i class="fas fa-sun"></i>' 
+        : '<i class="fas fa-moon"></i>';
 });
 
-shareDayBtn.addEventListener('click', async () => {
-    if (!currentDay) return;
-    
-    try {
-        await navigator.share({
-            title: `Advent Calendar - Day ${currentDay}`,
-            text: `${calendarData[currentDay].emoji} ${calendarData[currentDay].content}`,
-            url: `${window.location.href}?day=${currentDay}`
-        });
-    } catch (err) {
-        console.error('Share failed:', err);
-    }
+// Theme Select
+themeSelect.addEventListener('change', (e) => {
+    const theme = themes[e.target.value];
+    Object.entries(theme).forEach(([key, value]) => {
+        document.documentElement.style.setProperty(key, value);
+    });
 });
 
-// Week Start Change
-weekStartSelect.addEventListener('change', initializeCalendar);
+// Week Start Select
+weekStartSelect.addEventListener('change', () => {
+    calendarGrid.innerHTML = '';
+    initializeCalendar();
+});
 
-// Share Day Content
+// Share functionality
 async function shareDayContent(day) {
+    const shareData = {
+        title: '🎄 Advent Calendar 2023',
+        text: calendarData[day].content,
+        url: `${window.location.href}?day=${day}`
+    };
+
     try {
-        await navigator.share({
-            title: `Day ${day} - Advent Calendar`,
-            text: `${day} December: ${calendarData[day].content}`,
-            url: window.location.href
-        });
+        if (navigator.share) {
+            await navigator.share(shareData);
+        } else {
+            // Fallback to copying to clipboard
+            await navigator.clipboard.writeText(
+                `${shareData.title}\n${shareData.text}\n${shareData.url}`
+            );
+            alert('Link copied to clipboard!');
+        }
     } catch (err) {
-        console.log('Error sharing:', err);
-        alert('Sharing is not supported on this device/browser');
+        console.error('Error sharing:', err);
     }
 }
+
+shareCalendarBtn.addEventListener('click', async () => {
+    const shareData = {
+        title: '🎄 Advent Calendar 2023',
+        text: 'Check out this amazing Advent Calendar!',
+        url: window.location.href
+    };
+
+    try {
+        if (navigator.share) {
+            await navigator.share(shareData);
+        } else {
+            await navigator.clipboard.writeText(
+                `${shareData.title}\n${shareData.text}\n${shareData.url}`
+            );
+            alert('Link copied to clipboard!');
+        }
+    } catch (err) {
+        console.error('Error sharing:', err);
+    }
+});
 
 // Initialize everything
 initializeCalendar();
