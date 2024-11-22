@@ -13,10 +13,21 @@ const countdown = document.getElementById('countdown');
 const shareButton = document.getElementById('shareButton');
 const shareDayButton = document.getElementById('shareDayButton');
 const floatingEmojis = document.getElementById('floatingEmojis');
+const themeDescription = document.querySelector('.theme-description');
 
 // State
-let currentTheme = 'advent';
+let currentTheme = localStorage.getItem('calendarTheme') || 'advent';
 let selectedDay = null;
+const isDarkMode = localStorage.getItem('darkMode') === 'true';
+const weekStart = localStorage.getItem('weekStart') || '0';
+
+// Initialize theme and preferences
+if (isDarkMode) {
+    document.body.classList.add('dark-theme');
+    themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+}
+weekStartDay.value = weekStart;
+calendarTheme.value = currentTheme;
 
 // Theme Toggle
 themeToggle.addEventListener('click', () => {
@@ -24,17 +35,21 @@ themeToggle.addEventListener('click', () => {
     const icon = themeToggle.querySelector('i');
     icon.classList.toggle('fa-moon');
     icon.classList.toggle('fa-sun');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-theme'));
 });
 
 // Calendar Theme Change
 calendarTheme.addEventListener('change', (e) => {
     currentTheme = e.target.value;
+    localStorage.setItem('calendarTheme', currentTheme);
     updateFloatingEmojis();
+    updateThemeDescription();
     renderCalendar();
 });
 
 // Week Start Day Change
-weekStartDay.addEventListener('change', () => {
+weekStartDay.addEventListener('change', (e) => {
+    localStorage.setItem('weekStart', e.target.value);
     renderCalendar();
 });
 
@@ -87,6 +102,12 @@ function updateFloatingEmojis() {
     }
 }
 
+// Update theme description
+function updateThemeDescription() {
+    const description = themeData[currentTheme].description;
+    themeDescription.innerHTML = `<p>${description}</p>`;
+}
+
 // Parallax Effect
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
@@ -107,7 +128,8 @@ function getFirstDayOfMonth(year, month) {
 }
 
 function isWeekend(dayOfWeek) {
-    return dayOfWeek === 0 || dayOfWeek === 6;
+    // 6 is Saturday, 0 is Sunday
+    return dayOfWeek === 6 || dayOfWeek === 0;
 }
 
 function updateCountdown() {
@@ -129,11 +151,11 @@ function showDayContent(day) {
     }
 
     selectedDay = day;
-    const content = themeData[currentTheme].content[day];
+    const content = calendarContent[day];
     popupContent.innerHTML = `
         <h2>${content.title}</h2>
         <p>${content.content}</p>
-        <div class="emoji-display">${content.emoji}</div>
+        
     `;
     popup.style.display = 'block';
 }
@@ -152,7 +174,11 @@ function renderCalendar() {
     const orderedWeekdays = [...weekdays.slice(startDay), ...weekdays.slice(0, startDay)];
     
     weekdaysContainer.innerHTML = orderedWeekdays
-        .map(day => `<div class="weekday">${day}</div>`)
+        .map((day, index) => {
+            const originalIndex = (index + startDay) % 7;
+            const isWeekendDay = originalIndex === 0 || originalIndex === 6;
+            return `<div class="weekday${isWeekendDay ? ' weekend' : ''}">${day}</div>`;
+        })
         .join('');
 
     // Render days
@@ -174,7 +200,8 @@ function renderCalendar() {
         dayElement.textContent = day;
 
         const dayOfWeek = (firstDay + day - 1) % 7;
-        if (isWeekend(dayOfWeek)) {
+        const actualDayOfWeek = (dayOfWeek + startDay) % 7;
+        if (isWeekend(actualDayOfWeek)) {
             dayElement.classList.add('weekend');
         }
 
@@ -192,10 +219,12 @@ function renderCalendar() {
     }
 
     // Update today's content
-    const todayData = themeData[currentTheme].content[today];
+    const todayData = calendarContent[today];
+    const themeEmoji = themeData[currentTheme].emojis[today % themeData[currentTheme].emojis.length];
     todayContent.innerHTML = `
         <h3>${todayData.title}</h3>
         <p>${todayData.content}</p>
+        <div class="emoji-display">${themeEmoji}</div>
     `;
 }
 
@@ -203,6 +232,7 @@ function renderCalendar() {
 function init() {
     renderCalendar();
     updateFloatingEmojis();
+    updateThemeDescription();
     setInterval(updateCountdown, 1000);
 
     // Check for shared day in URL

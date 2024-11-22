@@ -61,7 +61,7 @@ button:hover, select:hover {
 
 .calendar-container {
     max-width: 800px;
-    margin: 80px auto 20px;
+    margin: 40px auto 20px;
     padding: 20px;
     background-color: var(--card-bg);
     border-radius: 15px;
@@ -79,6 +79,15 @@ button:hover, select:hover {
     text-align: center;
     font-weight: bold;
     margin-bottom: 10px;
+}
+
+.weekday {
+    padding: 8px;
+    font-weight: bold;
+}
+
+.weekday.weekend {
+    color: var(--weekend-color);
 }
 
 .calendar-grid {
@@ -107,6 +116,7 @@ button:hover, select:hover {
 
 .calendar-day.weekend {
     background-color: var(--weekend-color);
+    color: var(--text-color);
 }
 
 .calendar-day.locked {
@@ -127,6 +137,23 @@ button:hover, select:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: grid;
     gap: 20px;
+}
+
+.theme-description {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 15px 20px;
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.theme-description p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: var(--text-color);
 }
 
 .popup {
@@ -186,6 +213,36 @@ button:hover, select:hover {
     100% {
         transform: translateY(-100px) rotate(360deg);
     }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Editor Line Numbers */
+.line-numbers {
+    counter-reset: line;
+    padding-left: 3em;
+    position: relative;
+}
+
+.line-numbers::before {
+    counter-increment: line;
+    content: counter(line);
+    position: absolute;
+    left: 0;
+    color: var(--text-color);
+    opacity: 0.5;
+    text-align: right;
+    width: 2.5em;
+    padding-right: 0.5em;
 }
 
 @media (max-width: 768px) {
