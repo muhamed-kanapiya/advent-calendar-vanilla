@@ -1,0 +1,354 @@
+:root {
+    /* Base theme colors */
+    --background: #ffffff;
+    --foreground: #18181b;
+    --card: #ffffff;
+    --border: #e2e2e2;
+    --muted: #f4f4f5;
+    --muted-foreground: #71717a;
+    --accent: #f4f4f5;
+    --accent-foreground: #18181b;
+    --primary: #ea580c;
+    --primary-foreground: #ffffff;
+    --radius: 0.5rem;
+    
+    /* Typography */
+    --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.dark {
+    --background: #18181b;
+    --foreground: #fafafa;
+    --card: #27272a;
+    --border: #3f3f46;
+    --muted: #27272a;
+    --muted-foreground: #a1a1aa;
+    --accent: #3f3f46;
+    --accent-foreground: #fafafa;
+    --primary: #f97316;
+    --primary-foreground: #fafafa;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    background-color: var(--background);
+    color: var(--foreground);
+    line-height: 1.4;
+}
+
+.container {
+    min-height: 100vh;
+    background: var(--background);
+    color: var(--foreground);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+header {
+    padding: 0.35rem;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+}
+
+.header-content {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.35rem;
+}
+
+.button, .select {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--foreground);
+    padding: 0.35rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.select {
+    padding-right: 1.5rem;
+}
+
+.button:hover, .select:hover {
+    background: var(--accent);
+}
+
+.calendar-container {
+    margin: 0.35rem auto;
+    width: 100%;
+    max-width: 550px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.35rem;
+    height: calc(100vh - 75px);
+    display: flex;
+    flex-direction: column;
+}
+
+.side-content {
+    position: fixed;
+    right: 0.35rem;
+    top: 60px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    width: 200px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.2rem;
+    flex: 1;
+    align-content: start;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 0.1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.calendar-day:not(.empty):hover {
+    transform: translateY(-2px);
+    background: var(--accent);
+}
+
+.calendar-day.locked {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background: var(--muted);
+}
+
+.calendar-day.opened {
+    background: var(--accent);
+    border-color: var(--accent-foreground);
+}
+
+.calendar-day.holiday {
+    background: var(--primary);
+    color: var(--primary-foreground);
+}
+
+.share-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.35rem;
+    background: var(--primary);
+    color: var(--primary-foreground);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: opacity 0.2s;
+}
+
+.share-button:hover {
+    opacity: 0.9;
+}
+
+.share-button i {
+    font-size: 0.9rem;
+}
+
+.today-content, .countdown {
+    background: var(--accent);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.5rem;
+}
+
+.countdown-timer {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    font-family: monospace;
+    background: var(--card);
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin-top: 0.25rem;
+}
+
+.today-content h2, .countdown h2 {
+    font-size: 0.9rem;
+    margin-bottom: 0.35rem;
+    text-align: center;
+    font-weight: 600;
+    color: var(--muted-foreground);
+}
+
+.month-header {
+    text-align: center;
+    margin-bottom: 0.2rem;
+}
+
+.month-header h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.weekday-header {
+    text-align: center;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+    text-transform: uppercase;
+    padding: 0.1rem;
+}
+
+.day-number {
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.day-emoji {
+    font-size: 0.8rem;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    animation: modalFadeIn 0.3s ease;
+}
+
+.close {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    padding: 0.25rem;
+    cursor: pointer;
+    color: var(--foreground);
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    z-index: 2;
+}
+
+.close:hover {
+    opacity: 1;
+}
+
+.modal-body {
+    margin: 0.5rem 0 1rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--foreground);
+}
+
+.modal .share-button {
+    width: 100%;
+    margin-top: auto;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.bg-decorations {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.decoration-layer {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+}
+
+.decoration-layer span {
+    position: absolute;
+    font-size: 1.25rem;
+    transition: transform 0.3s;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0.35rem;
+    }
+
+    .side-content {
+        position: static;
+        width: 100%;
+        margin-bottom: 0.35rem;
+    }
+
+    .calendar-container {
+        height: auto;
+        margin: 0;
+    }
+
+    .calendar-day {
+        font-size: 0.75rem;
+    }
+
+    .day-emoji {
+        font-size: 0.875rem;
+    }
+}

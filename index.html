@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advent Calendar 2023 ✨</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <select id="themeSelect" class="select">
+                    <option value="winter">Winter Wonderland</option>
+                    <option value="cozy">Cozy Cabin</option>
+                    <option value="festive">Festive Magic</option>
+                    <option value="nordic">Nordic Night</option>
+                </select>
+                <button id="darkModeToggle" class="button">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="calendar-container">
+            <div class="month-header">
+                <h2>December 2023</h2>
+            </div>
+            <div id="calendarGrid" class="calendar-grid"></div>
+        </div>
+
+        <div class="bg-decorations">
+            <div class="decoration-layer layer-1"></div>
+            <div class="decoration-layer layer-2"></div>
+            <div class="decoration-layer layer-3"></div>
+        </div>
+
+        <div class="side-content">
+            <button class="share-button" id="shareCalendar">
+                <i class="fas fa-share-alt"></i> Share Calendar
+            </button>
+            <div class="today-content" id="todayCard">
+                <h2>Today's Surprise</h2>
+                <p>Open today's door to see your surprise!</p>
+            </div>
+            <div class="countdown">
+                <h2>Time Until Next Day</h2>
+                <div class="countdown-timer">
+                    <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for day content -->
+        <div id="dayModal" class="modal">
+            <div class="modal-content" id="modalContent">
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </div>
+</body>
+</html>
