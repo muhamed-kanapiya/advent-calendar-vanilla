@@ -1,75 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🎄 Advent Calendar 2023</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
-  </head>
-  <body>
-    <div id="bg-emojis" class="bg-emojis"></div>
-    <div class="container">
-      <header>
-        <h1>🎄 Advent Calendar 2024</h1>
-        <p class="description">Discover a new surprise every day until Christmas! 🎅</p>
-
-        <div class="controls">
-          <select id="themeSelect" class="select">
-            <option value="winter">❄️ Winter Wonderland</option>
-            <option value="cozy">🏠 Cozy Cabin</option>
-            <option value="festive">🎄 Festive Magic</option>
-            <option value="nordic">🦌 Nordic Night</option>
-          </select>
-
-          <select id="weekStartSelect" class="select">
-            <option value="monday">Week starts Monday</option>
-            <option value="sunday">Week starts Sunday</option>
-          </select>
-          <button id="themeToggle" class="button">
-            <i class="fas fa-moon"></i>
-          </button>
-        </div>
-      </header>
-
-      <div class="main-content">
-        <div class="calendar-container">
-          <div class="month-header">
-            <h2>December 2024</h2>
-          </div>
-          <div id="calendarGrid" class="calendar-grid"></div>
-        </div>
-
-        <div class="bg-decorations">
-          <div class="decoration-layer layer-1"></div>
-          <div class="decoration-layer layer-2"></div>
-          <div class="decoration-layer layer-3"></div>
-        </div>
-
-        <div class="side-content">
-          <button class="share-button" id="shareCalendar">
-            <i class="fas fa-share-alt"></i>  Share Calendar
-          </button>
-          <div class="today-content" id="todayCard">
-            <h2>Today's Surprise</h2>
-            <p>Open today's door to see your surprise!</p>
-          </div>
-          <div class="countdown">
-            <h2>Time Until Next Day</h2>
-            <div class="countdown-timer" id="timer">Loading...</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal for day content -->
-      <div id="dayModal" class="modal">
-        <div class="modal-content" id="modalContent"></div>
-      </div>
-
-      <script src="script.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advent Calendar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round"></div>
+        </label>
     </div>
-  </body>
+    
+    <div class="container">
+        <div class="calendar-header-wrapper">
+            <h1><span id="currentMonth"></span></h1>
+        </div>
+        <div class="calendar">
+            <div class="calendar-header">
+                <div>S</div>
+                <div>M</div>
+                <div>T</div>
+                <div>W</div>
+                <div>T</div>
+                <div>F</div>
+                <div>S</div>
+            </div>
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- Calendar days will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
 </html>
