@@ -3,36 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advent Calendar</title>
+    <title>Interactive Advent Calendar</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <div class="theme-switch-wrapper">
-        <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" />
-            <div class="slider round"></div>
-        </label>
+<body class="light-theme">
+    <div class="theme-controls">
+        <button id="themeToggle" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+        </button>
+        <select id="weekStartDay">
+            <option value="0">Sunday Start</option>
+            <option value="1">Monday Start</option>
+        </select>
+        <select id="calendarTheme">
+            <option value="advent">Advent 🎄</option>
+            <option value="winter">Winter ❄️</option>
+            <option value="space">Space 🚀</option>
+            <option value="ocean">Ocean 🌊</option>
+        </select>
     </div>
-    
-    <div class="container">
-        <div class="calendar-header-wrapper">
-            <h1><span id="currentMonth"></span></h1>
+
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <h1 id="currentMonth"></h1>
         </div>
-        <div class="calendar">
-            <div class="calendar-header">
-                <div>S</div>
-                <div>M</div>
-                <div>T</div>
-                <div>W</div>
-                <div>T</div>
-                <div>F</div>
-                <div>S</div>
-            </div>
-            <div class="calendar-grid" id="calendarGrid">
-                <!-- Calendar days will be inserted here by JavaScript -->
-            </div>
+        <div class="weekdays" id="weekdaysContainer"></div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+    </div>
+
+    <div class="info-section">
+        <div class="today-content">
+            <h2>Today's Content</h2>
+            <div id="todayContent"></div>
+        </div>
+        <div class="countdown">
+            <h2>Next Day Opens In</h2>
+            <div id="countdown"></div>
+        </div>
+        <button id="shareButton" class="share-button">
+            <i class="fas fa-share-alt"></i> Share Calendar
+        </button>
+    </div>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <button class="close-popup">&times;</button>
+            <div id="popupContent"></div>
+            <button id="shareDayButton" class="share-button">
+                <i class="fas fa-share-alt"></i> Share This Day
+            </button>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <div class="floating-emojis" id="floatingEmojis"></div>
+
+    <script src="calendar-data.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
