@@ -1,73 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>🎄 Advent Calendar 2023</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div id="bg-emojis" class="bg-emojis"></div>
     <div class="container">
-        <header>
-            <h1>🎄 Advent Calendar 2023</h1>
-            <p class="description">Discover a new surprise every day until Christmas! 🎅</p>
-            
-            <div class="controls">
-                <select id="themeSelect" class="select">
-                    <option value="winter">❄️ Winter Wonderland</option>
-                    <option value="cozy">🏠 Cozy Cabin</option>
-                    <option value="festive">🎄 Festive Magic</option>
-                    <option value="nordic">🦌 Nordic Night</option>
-                </select>
+      <header>
+        <h1>🎄 Advent Calendar 2024</h1>
+        <p class="description">Discover a new surprise every day until Christmas! 🎅</p>
 
-                <select id="weekStartSelect" class="select">
-                    <option value="monday">Week starts Monday</option>
-                    <option value="sunday">Week starts Sunday</option>
-                </select>
-                <button id="themeToggle" class="button">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </div>
-        </header>
+        <div class="controls">
+          <select id="themeSelect" class="select">
+            <option value="winter">❄️ Winter Wonderland</option>
+            <option value="cozy">🏠 Cozy Cabin</option>
+            <option value="festive">🎄 Festive Magic</option>
+            <option value="nordic">🦌 Nordic Night</option>
+          </select>
 
-        <div class="main-content">
-            <div class="calendar-container">
-                <div class="month-header">
-                    <h2>December 2023</h2>
-                </div>
-                <div id="calendarGrid" class="calendar-grid"></div>
-            </div>
+          <select id="weekStartSelect" class="select">
+            <option value="monday">Week starts Monday</option>
+            <option value="sunday">Week starts Sunday</option>
+          </select>
+          <button id="themeToggle" class="button">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+      </header>
 
-            <div class="bg-decorations">
-                <div class="decoration-layer layer-1"></div>
-                <div class="decoration-layer layer-2"></div>
-                <div class="decoration-layer layer-3"></div>
-            </div>
-
-
-            <div class="side-content">
-                <button class="share-button" id="shareCalendar">
-                    <i class="fas fa-share-alt"></i> Share Calendar
-                </button>
-                <div class="today-content" id="todayCard">
-                    <h2>Today's Surprise</h2>
-                    <p>Open today's door to see your surprise!</p>
-                </div>
-                <div class="countdown">
-                    <h2>Time Until Next Day</h2>
-                    <div class="countdown-timer" id="timer">Loading...</div>
-                </div>
-            </div>
+      <div class="main-content">
+        <div class="calendar-container">
+          <div class="month-header">
+            <h2>December 2024</h2>
+          </div>
+          <div id="calendarGrid" class="calendar-grid"></div>
         </div>
 
-        <!-- Modal for day content -->
-        <div id="dayModal" class="modal">
-            <div class="modal-content" id="modalContent">
-            </div>
+        <div class="bg-decorations">
+          <div class="decoration-layer layer-1"></div>
+          <div class="decoration-layer layer-2"></div>
+          <div class="decoration-layer layer-3"></div>
         </div>
 
-        <script src="script.js"></script>
+        <div class="side-content">
+          <button class="share-button" id="shareCalendar">
+            <i class="fas fa-share-alt"></i>  Share Calendar
+          </button>
+          <div class="today-content" id="todayCard">
+            <h2>Today's Surprise</h2>
+            <p>Open today's door to see your surprise!</p>
+          </div>
+          <div class="countdown">
+            <h2>Time Until Next Day</h2>
+            <div class="countdown-timer" id="timer">Loading...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal for day content -->
+      <div id="dayModal" class="modal">
+        <div class="modal-content" id="modalContent"></div>
+      </div>
+
+      <script src="script.js"></script>
     </div>
-</body>
+  </body>
 </html>
